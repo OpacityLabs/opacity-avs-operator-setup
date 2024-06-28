@@ -47,6 +47,8 @@ otherwise contact @EulerLagrange217 on telegram
 
 ## Install Go+EigenLayer cli
 
+This step might be optional, so read carefully.
+
 The binaries for the two CLI tools are provided bin folder of this repo. Since these binaries will handle private keys or may not execute correctly we've provided instructions to build them yourself in: [CLI Guide]( [SGX Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/SGX.md))
 
 
