@@ -119,4 +119,4 @@ If all looks good go to https://your-node-public-ip:7047
 
 You should see:
 
-<img width="640" alt="Screenshot 2024-06-28 at 6 33 24 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/assets/76923506/ebe5b957-7d51-4f93-8430-1c1ab5d79077">
+<img width="640" alt="running node" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/running-node.png?raw=true">
