@@ -55,14 +55,14 @@ start-container:
 #	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "OPERATOR_BLS_KEY_PASSWORD is not set" && exit 1)
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "OPERATOR_ECDSA_KEY_FILE env var is not set" && exit 1)
 	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "OPERATOR_BLS_KEY_FILE env var is not set" && exit 1)
-	@docker run -d -it --name opacity-avs \ 
-		--device /dev/sgx_enclave --device /dev/sgx_provision \
+	@docker run -it --name opacity-avs \
+		--device /dev/sgx_enclave \
+		--device /dev/sgx_provision \
 		--volume $(OPERATOR_ECDSA_KEY_FILE):/opacity-avs-node/opacity.ecdsa.key.json \
-  		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/opacity.bls.key.json \
-		--volume config/holesky/opacity.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
+		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/opacity.bls.key.json \
+		--volume ./config/holesky/opacity.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_ECDSA_KEY_PASSWORD=$(OPERATOR_ECDSA_KEY_PASSWORD) \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
-		-p 7047:7047 \
-  		opacitylabseulerlagrange/opacity-avs-node:latest
+		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
 
 

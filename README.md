@@ -108,6 +108,8 @@ docker run -it --name opacity-avs \
     -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
 ```
 
+add a `-d` to start it in the background.
+
 This should start off the container
 
 To check if it is still alive run:
