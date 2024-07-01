@@ -13,6 +13,7 @@ The Opacity node must be run with a Intel SGX with SGX2 enabled. If you want to 
 - [Azure](https://learn.microsoft.com/en-us/azure/confidential-computing/quick-create-portal): Standard_DC2s_v2 is recommended
 - [OVH](https://help.ovhcloud.com/csm/en-dedicated-servers-intel-sgx?id=kb_article_view&sysparm_article=KB0044005)
 - [Fleek Network](https://fleek.xyz)
+- [IBM](https://cloud.ibm.com/docs/bare-metal?topic=bare-metal-bm-server-provision-sgx)
 
 We recommend you use Ubuntu 22.04
 
