@@ -81,11 +81,12 @@ node_public_ip: your.ip.public.address
 
 ### Start the Docker container
 ```sh
+#! Make sure these are correct
 export OPERATOR_ECDSA_KEY_PASSWORD="your password"
-#! Make sure this is correct
-export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json
 export OPERATOR_BLS_KEY_PASSWORD="your password"
-#! Make sure this is correct
+
+#! Make sure these are correct
+export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json
 export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.json
 ```
 
@@ -128,3 +129,33 @@ If all looks good go to https://your-node-public-ip:7047
 You should see:
 
 <img width="640" alt="running node" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/running-node.png?raw=true">
+
+
+## View Node Logs
+
+Once your container is running, we've included some commands to view the logs.
+
+Run:
+
+```bash
+make show-node-logs
+```
+
+OR
+
+```bash
+docker logs --since=1h opacity-avs
+```
+
+
+The following command will also dump all the logs into a `opacity-avs-node.log` file:
+
+```bash
+make dump-node-logs
+```
+
+OR
+
+```bash
+docker logs opacity-avs >& opacity-avs-node.log
+```

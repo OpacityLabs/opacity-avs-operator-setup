@@ -65,4 +65,11 @@ start-container:
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
 		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
 
+.PHONY: show-node-logs
+show-node-logs:
+	@docker logs --since=1h opacity-avs
 
+.PHONY: dump-node-logs
+dump-node-logs:
+	@docker logs opacity-avs >& opacity-avs-node.log
+	@echo "Logs dumped to opacity-avs-node.log"
