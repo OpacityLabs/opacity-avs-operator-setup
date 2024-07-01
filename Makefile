@@ -71,5 +71,5 @@ show-node-logs:
 
 .PHONY: dump-node-logs
 dump-node-logs:
-	@docker logs opacity-avs >& opacity-avs-node.log
+	@docker logs opacity-avs > opacity-avs-node.log
 	@echo "Logs dumped to opacity-avs-node.log"
