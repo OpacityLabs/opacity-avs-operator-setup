@@ -100,6 +100,9 @@ make start-container
 OR
 
 ```bash
+# Make sure you're on the latest image
+docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+
 docker run -it --name opacity-avs \
     --device /dev/sgx_enclave \
     --device /dev/sgx_provision \
