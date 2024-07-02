@@ -1,0 +1,15 @@
+#! This config is internal for the docker image, no need to modify it
+
+production: false
+registry_coordinator_address:
+opacity_avs_address:
+avs_directory_address:
+eigenlayer_delegation_manager:
+chain_id: 1
+eth_rpc_url:
+# Do not change this
+ecdsa_private_key_store_path:
+# Do not change this
+bls_private_key_store_path:
+# Set this
+node_public_ip:

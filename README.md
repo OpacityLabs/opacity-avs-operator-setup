@@ -1,164 +1,126 @@
-# Opacity AVS Node
+# Register Node Operator with EigenLayer local fork
 
-For support contact @EulerLagrange217 on telegram
+The following is not Opacity specific but for EigenLayer. We will be summarizing the following verboase guide: [EigenLayer Guide](https://docs.eigenlayer.xyz/eigenlayer/operator-guides/operator-installation)
 
-## Introduction
+## USE THE FORK RPC THROUGH OUT
 
-Node Specs Recommended:
 
-<img width="728" alt="Opacity Specs" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/specs.png?raw=true">
 
-The Opacity node must be run with a Intel SGX with SGX2 enabled. If you want to use a cloud provider, please use one of these:
-
-- [Azure](https://learn.microsoft.com/en-us/azure/confidential-computing/quick-create-portal): Standard_DC2s_v2 is recommended
-- [OVH](https://help.ovhcloud.com/csm/en-dedicated-servers-intel-sgx?id=kb_article_view&sysparm_article=KB0044005)
-- [Fleek Network](https://fleek.xyz)
-- [IBM](https://cloud.ibm.com/docs/bare-metal?topic=bare-metal-bm-server-provision-sgx)
-
-We recommend you use Ubuntu 22.04
-
-We DO NOT support AWS Enclaves!
-
-## Clone this repo
+## Create ECDSA and BLS keys
 
 ```bash
-git clone https://github.com/OpacityLabs/opacity-avs-operator-setup && cd opacity-avs-node
+make generate-operator-keys
 ```
 
-## Check SGX
+OR
 
-First we should check you are on a valid SGX machine.
-
-Go to [Fortanix](https://support.fortanix.com/hc/en-us/articles/4414753648788-SGX-Detect-Tool) and download the binary for your operating system.
-
-For Ubuntu 22.04:
 ```bash
-wget https://download.fortanix.com/sgx-detect/ubuntu22.04/sgx-detect?_gl=1*1saf6me*_gcl_au*NDAwNTE3NzE0LjE3MTk1MjQyNDQ -O sgx-detect
-chmod +x sgx-detect
-sudo ./sgx-detect
+./bin/eigenlayer operator keys create --key-type ecdsa opacity
+./bin/eigenlayer operator keys create --key-type bls opacity
 ```
 
-You should see:
+To check if you did it right you can run:
 
-<img width="418" alt="sgx-detect" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/sgx.png?raw=true">
+```bash
+make list-keys
+```
 
+OR
 
-If you see any red on the output, please follow the guide here: [SGX Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/SGX.md)
-
-otherwise contact @EulerLagrange217 on telegram
-
-## Install Go+EigenLayer cli
-
-This step might be optional, so read carefully.
-
-The binaries for the two CLI tools are provided bin folder of this repo. Since these binaries will handle private keys or may not execute correctly we've provided instructions to build them yourself in: [CLI Guide]( [SGX Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/SGX.md))
+```bash
+./bin/eigenlayer operator keys list
+```
 
 
-## Register Node Operator with EigenLayer
+<img width="1487" alt="Screenshot 2024-06-20 at 1 40 44 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/list-keys.png?raw=true">
 
-Before we can run a node, you must register your keys as an operator with EigenLayer. Please follow this guide: [Register Operator Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/REGISTER-EIGEN.md)
+---
 
-## Install Docker
+## Fund ECDSA Wallet with testnet ETH
 
-Using docker will make it much easier to manage the lifetime of your node operations, as well as seamlessly apply updates.
+We need to load your operator wallet with some holesky eth to submit transactions. See: [EigenLayer testnet LST Guide](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/testnet/obtaining-testnet-eth-and-liquid-staking-tokens-lsts)
 
-Use this guide: [Docker Install Guide](https://docs.docker.com/engine/install/linux-postinstall/)
+Google cloud gives a good amount: [Google cloud faucet](https://cloud.google.com/application/web3/faucet/ethereum/holesky). But you
 
-## Run Opacity Node
+## Use some Holesky eth to get holesky stETH: [LIDO staking app](https://stake-holesky.testnet.fi/)
 
-### Update Config
+## Create Operator config
 
-There is one config value you must set manually in config/holesky/opacity.config.yaml
+We need to generate some metadata so eigenlayer can show you nicely in their UI.
+
+I would recommend forking this repo: [operator metadata](https://github.com/Hmac512/eigenpod) and changing the values to your liking, be sure to replace the image with your own!
+
+Run:
+
+```bash
+make create-operator-config
+```
+
+OR
+
+```bash
+./bin/eigenlayer operator config create
+```
+
+Say yes to populating the config
+
+```bash
+Enter your operator address: 0xfe8463ca0a9b436fdc5f75709ad5a43961802d68
+Enter your earnings address (default to your operator address): 0xfe8463ca0a9b436fdc5f75709ad5a43961802d68
+Enter your ETH rpc url: https://ethereum-holesky.publicnode.com
+Select your network: holesky
+Select your signer type: local_keystore
+Enter your ecdsa key path: /home/ubuntu/.eigenlayer/operator_keys/opacity.ecdsa.key.json
+```
+
+
+This will generate a operator.yaml file that should look like:
 
 ```yaml
-#! Do not change this
-ecdsa_private_key_store_path: /opacity-avs-node/opacity.ecdsa.key.json
-#! Do not change this
-bls_private_key_store_path: /opacity-avs-node/opacity.bls.key.json
-# Set this (no quotes needed)
-node_public_ip: your.ip.public.address
+operator:
+    address: <your operator address>
+    earnings_receiver_address: <your operator address>
+    delegation_approver_address: "0x0000000000000000000000000000000000000000"
+    staker_opt_out_window_blocks: 0
+    #! Update this to be correct
+    metadata_url: "https://raw.githubusercontent.com/<github-username>/eigenpod/main/metadata.json"
+el_delegation_manager_address: 0xA44151489861Fe9e3055d95adC98FbD462B948e7
+eth_rpc_url: https://ethereum-holesky.publicnode.com
+#! Make sure this path is correct
+private_key_store_path: <path to your private key>
+signer_type: local_keystore
+chain_id: 17000
+fireblocks:
+    api_key: ""
+    secret_key: ""
+    base_url: ""
+    vault_account_name: ""
+    secret_storage_type: ""
+    aws_region: ""
+    timeout: 0
+web3:
+    url: ""
 ```
 
-### Start the Docker container
-```sh
-#! Make sure these are correct
-export OPERATOR_ECDSA_KEY_PASSWORD="your password"
-export OPERATOR_BLS_KEY_PASSWORD="your password"
+Remember to fill out the metadata_url to your forked repo, and that private_key_store_path is correct! If you don't get the metadata right the first time, sometimes it takes a few min for the cache to refresh.
 
-#! Make sure these are correct
-export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json
-export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.json
-```
+<b><u>Make a backup of your operator.yaml for convenience</u></b>
 
+## Register Node Operator
 
-Run:
+RUN:
 
 ```bash
-make start-container
+make register-eigen-operator
 ```
 
-OR
+OR:
 
 ```bash
-# Make sure you're on the latest image
-docker pull opacitylabseulerlagrange/opacity-avs-node:latest
-
-docker run -it --name opacity-avs \
-    --device /dev/sgx_enclave \
-    --device /dev/sgx_provision \
-    --volume $OPERATOR_ECDSA_KEY_FILE:/opacity-avs-node/opacity.ecdsa.key.json \
-    --volume $OPERATOR_BLS_KEY_FILE:/opacity-avs-node/opacity.bls.key.json \
-    --volume ./config/holesky/opacity.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
-    -e OPERATOR_ECDSA_KEY_PASSWORD=$OPERATOR_ECDSA_KEY_PASSWORD \
-    -e OPERATOR_BLS_KEY_PASSWORD=$OPERATOR_BLS_KEY_PASSWORD \
-    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
+./bin/eigenlayer operator register operator.yaml
 ```
 
-add a `-d` to start it in the background.
-
-This should start off the container
-
-To check if it is still alive run:
-```bash
-docker container ls -la
-```
-To get the logs from a container
-```bash
-docker logs --since=1h <container-id>
-```
-
-If all looks good go to https://your-node-public-ip:7047
 
 You should see:
 
-<img width="640" alt="running node" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/running-node.png?raw=true">
-
-
-## View Node Logs
-
-Once your container is running, we've included some commands to view the logs.
-
-Run:
-
-```bash
-make show-node-logs
-```
-
-OR
-
-```bash
-docker logs --since=1h opacity-avs
-```
-
-
-The following command will also dump all the logs into a `opacity-avs-node.log` file:
-
-```bash
-make dump-node-logs
-```
-
-OR
-
-```bash
-docker logs opacity-avs >& opacity-avs-node.log
-```
+<img width="1572" alt="Screenshot 2024-06-20 at 1 35 59 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/register-eigen.png?raw=true">
