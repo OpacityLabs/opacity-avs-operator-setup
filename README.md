@@ -72,9 +72,9 @@ There is one config value you must set manually in config/holesky/opacity.config
 
 ```yaml
 #! Do not change this
-ecdsa_private_key_store_path: /opacity-avs-node/opacity.ecdsa.key.json
+ecdsa_private_key_store_path: /opacity-avs-operator-setup/opacity.ecdsa.key.json
 #! Do not change this
-bls_private_key_store_path: /opacity-avs-node/opacity.bls.key.json
+bls_private_key_store_path: /opacity-avs-operator-setup/opacity.bls.key.json
 # Set this (no quotes needed)
 node_public_ip: your.ip.public.address
 ```
