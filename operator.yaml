@@ -1,5 +1,5 @@
 operator:
-    address: 0x20f752B682e8C67d951f5f350f78428d83817382
+    address: 0x3e9296C7827F856dcb02B19C1E615D9db6e04b6f
     earnings_receiver_address: 0x20f752B682e8C67d951f5f350f78428d83817382
     delegation_approver_address: "0x0000000000000000000000000000000000000000"
     staker_opt_out_window_blocks: 0

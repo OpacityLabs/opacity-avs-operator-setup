@@ -1,8 +1,8 @@
 #! This config is internal for the docker image, no need to modify it
 
 production: false
-registry_coordinator_address: 0x72F853E9E202600c5017B5A060168603c3ed7368
-opacity_avs_address: 0xbfc5d26c6eeb46475eb3960f5373edc5341ee535
+registry_coordinator_address: 0x82Bd83ec6D4bCC8EaB6F6cF7565efE1e41D92Ce5
+opacity_avs_address: 0x06786bCbc114bbfa670E30A1AC35dFd1310Be82f
 avs_directory_address: 0x135DDa560e946695d6f155dACaFC6f1F25C1F5AF
 eigenlayer_delegation_manager: 0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A
 chain_id: 1

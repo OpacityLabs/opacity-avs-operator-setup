@@ -27,6 +27,8 @@ NOTE: Check that the contract values match between this repo (opacity-avs-operat
 - registry_coordinator_address == RegistryCoordinatorProxy
 - opacity_vs_address == OpacityServiceManagerProxy
 
+If they do not match, change the values in opacity.config.yaml so that they do.
+
 ## Create ECDSA and BLS keys
 
 Continue in a cli for this repo...
@@ -60,19 +62,23 @@ OR
 
 ## Fund ECDSA Wallet with forked ETH and RETH and deposit into Staking Strategy
 
-send eth to your operator (we are sending from the same anvil pk we used above 0xac0...f80)
-
-```bash
-cast send –private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 <your ECDSA Ethereum Address> --value 1ether
-```
-
-Get RETH (we are using cheat codes to steal it from a large account)
+setup envrionment
 
 ```bash
 export OPER=<your operator ECDSA address>
 export RETH=0xae78736Cd615f374D3085123A210448E74Fc6393
 export WHALE=0x3ad1b118813e71a6b2683FCb2044122fe195AC36
+export STRAT=0x1BeE69b7dFFfA4E2d53C2a2Df135C388AD25dCD2
+export STRAT_MANAGER=0x858646372CC42E1A627fcE94aa7A7033e7CF075A
 ```
+
+send eth to your operator (we are sending from the same anvil pk we used above 0xac0...f80)
+
+```bash
+cast send --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 $OPER --value 1ether
+```
+
+Get RETH (we are using cheat codes to steal it from a large account)
 
 ```bash
 cast rpc anvil_impersonateAccount $WHALE
@@ -80,11 +86,6 @@ cast send $RETH --from $WHALE "transfer(address,uint256)(bool)" $OPER 2000000000
 ```
 
 approve StrategyManager to spend your RETH:
-
-```bash
-export STRAT=0x1BeE69b7dFFfA4E2d53C2a2Df135C388AD25dCD2
-export STRAT_MANAGER=0x858646372CC42E1A627fcE94aa7A7033e7CF075A
-```
 
 ```bash
 cast rpc anvil_impersonateAccount $OPER
