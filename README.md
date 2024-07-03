@@ -165,10 +165,17 @@ Remember to fill out the metadata_url to your forked repo, and that private_key_
 RUN:
 
 ```bash
-make register-eigen-operator
+./bin/eigenlayer operator register operator.yaml
 ```
 
-OR:
+You should see:
+
+<img width="1572" alt="Screenshot 2024-06-20 at 1 35 59 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/register-eigen.png?raw=true">
+
+
+## Register Operator to Opacity AVS
+
+RUN:
 
 ```bash
 ./bin/eigenlayer operator register operator.yaml
@@ -176,4 +183,3 @@ OR:
 
 You should see:
 
-<img width="1572" alt="Screenshot 2024-06-20 at 1 35 59 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/register-eigen.png?raw=true">

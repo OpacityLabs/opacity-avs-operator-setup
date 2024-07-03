@@ -1,21 +1,21 @@
 operator:
-    address: 0x3e9296C7827F856dcb02B19C1E615D9db6e04b6f
-    earnings_receiver_address: 0x20f752B682e8C67d951f5f350f78428d83817382
-    delegation_approver_address: "0x0000000000000000000000000000000000000000"
-    staker_opt_out_window_blocks: 0
-    metadata_url: "https://raw.githubusercontent.com/0xwildhare/eigenpod/main/metadata.json"
+  address:
+  earnings_receiver_address:
+  delegation_approver_address: "0x0000000000000000000000000000000000000000"
+  staker_opt_out_window_blocks: 0
+  metadata_url: "https://raw.githubusercontent.com/0xwildhare/eigenpod/main/metadata.json"
 el_delegation_manager_address: 0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A
 eth_rpc_url: http://localhost:8545
-private_key_store_path: /home/steve-opacity/.eigenlayer/operator_keys/opacity.ecdsa.key.json
+private_key_store_path:
 signer_type: local_keystore
 chain_id: 1
 fireblocks:
-    api_key: ""
-    secret_key: ""
-    base_url: ""
-    vault_account_name: ""
-    secret_storage_type: ""
-    aws_region: ""
-    timeout: 0
+  api_key: ""
+  secret_key: ""
+  base_url: ""
+  vault_account_name: ""
+  secret_storage_type: ""
+  aws_region: ""
+  timeout: 0
 web3:
-    url: ""
+  url: ""

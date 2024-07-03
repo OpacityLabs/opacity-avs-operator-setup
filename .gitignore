@@ -44,3 +44,5 @@ fixture/tls/*.csr
 fixture/tls/*.key
 fixture/tls/*.crt
 fixture/tls/*.pem
+
+opacity-avs-contracts
