@@ -1,4 +1,4 @@
-# Register Node Operator with EigenLayer
+# Register Node Operator with EigenLayer mainnet
 
 The following is not Opacity specific but for EigenLayer. We will be summarizing the following verboase guide: [EigenLayer Guide](https://docs.eigenlayer.xyz/eigenlayer/operator-guides/operator-installation)
 
@@ -32,13 +32,9 @@ OR
 
 ---
 
-## Fund ECDSA Wallet with testnet ETH
+## Fund Operator Wallet with ETH
 
-We need to load your operator wallet with some holesky eth to submit transactions. See: [EigenLayer testnet LST Guide](https://docs.eigenlayer.xyz/eigenlayer/restaking-guides/restaking-user-guide/testnet/obtaining-testnet-eth-and-liquid-staking-tokens-lsts)
-
-Google cloud gives a good amount: [Google cloud faucet](https://cloud.google.com/application/web3/faucet/ethereum/holesky). But you
-
-## Use some Holesky eth to get holesky stETH: [LIDO staking app](https://stake-holesky.testnet.fi/)
+Make sure your operator wallet has enough ETH to be able to make the transactions to register.
 
 ## Create Operator config
 
@@ -80,12 +76,12 @@ operator:
     staker_opt_out_window_blocks: 0
     #! Update this to be correct
     metadata_url: "https://raw.githubusercontent.com/<github-username>/eigenpod/main/metadata.json"
-el_delegation_manager_address: 0xA44151489861Fe9e3055d95adC98FbD462B948e7
-eth_rpc_url: https://ethereum-holesky.publicnode.com
+el_delegation_manager_address: 0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A
+eth_rpc_url: https://holesky.infura.io/v3/...
 #! Make sure this path is correct
 private_key_store_path: <path to your private key>
 signer_type: local_keystore
-chain_id: 17000
+chain_id: 1
 fireblocks:
     api_key: ""
     secret_key: ""
@@ -120,3 +116,23 @@ OR:
 You should see:
 
 <img width="1572" alt="Screenshot 2024-06-20 at 1 35 59 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/register-eigen.png?raw=true">
+
+
+## Make sure you have 20ETH of Supported LSTs Delegated to your Operator
+
+- [Beacon Ether](https://app.eigenlayer.xyz/restake/ETH)
+- [stETH](https://app.eigenlayer.xyz/restake/stETH)
+- [rETH](https://app.eigenlayer.xyz/restake/rETH)
+- [cbETH](https://app.eigenlayer.xyz/restake/cbETH)
+- [ETHx](https://app.eigenlayer.xyz/restake/ETHx)
+- [ankrETH](https://app.eigenlayer.xyz/restake/ankrETH)
+- [OETH](https://app.eigenlayer.xyz/restake/OETH)
+- [osETH](https://app.eigenlayer.xyz/restake/osETH)
+- [swETH](https://app.eigenlayer.xyz/restake/swETH)
+- [wBETH](https://app.eigenlayer.xyz/restake/wBETH)
+- [sfrxETH](https://app.eigenlayer.xyz/restake/sfrxETH)
+- [lsETH](https://app.eigenlayer.xyz/restake/lsETH)
+- [mETH](https://app.eigenlayer.xyz/restake/mETH)
+
+
+Here is an example operator for our AVS on mainnet: [0xWildhare](https://app.eigenlayer.xyz/operator/0xe743b96d0c9b50a0d902a93c95ccb4ac8749a8c5)
