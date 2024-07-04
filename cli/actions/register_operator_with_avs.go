@@ -74,7 +74,10 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 
 	FailIfNoFile(configPath)
 
-	nodeConfig := OpacityConfig{}
+	nodeConfig := OpacityConfig{
+		ECDSAPrivateKeyStorePath: "/opacity-avs-node/opacity.ecdsa.key.json",
+		BLSPrivateKeyStorePath:   "/opacity-avs-node/opacity.bls.key.json",
+	}
 	err := sdkutils.ReadYamlConfig(configPath, &nodeConfig)
 	if err != nil {
 		log.Fatalln(err)
@@ -215,19 +218,10 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 			Expiry:    expiryBigInt,
 		}
 
-		currentNonce, err := client.NonceAt(context.Background(), operatorAddress, nil)
-		if err != nil {
-			log.Fatalln(err)
-			return err
-		}
 		nonce, err := client.PendingNonceAt(context.Background(), operatorAddress)
 		if err != nil {
 			log.Fatalln(err)
 			return err
-		}
-		if nonce != currentNonce {
-			log.Fatalln("Operator wallet has pending transactions, please wait for them to be mined")
-			return errors.New("Operator wallet has pending transactions, please wait for them to be mined")
 		}
 
 		gasPrice, err := client.SuggestGasPrice(context.Background())
