@@ -24,7 +24,7 @@ We DO NOT support AWS Enclaves!
 ## Clone this repo
 
 ```bash
-git clone https://github.com/OpacityLabs/opacity-avs-operator-setup && cd opacity-avs-node
+git clone https://github.com/OpacityLabs/opacity-avs-operator-setup && cd opacity-avs-operator-setup
 ```
 
 ## Check SGX
