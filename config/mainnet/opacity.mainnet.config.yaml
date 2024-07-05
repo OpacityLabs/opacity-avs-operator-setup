@@ -10,5 +10,6 @@ chain_id: 1
 # Set this
 eth_rpc_url: https://holesky.infura.io/v3/...
 
-# Set this
+# Set these
+operator_address:
 node_public_ip:

@@ -8,5 +8,6 @@ eigenlayer_delegation_manager: 0xA44151489861Fe9e3055d95adC98FbD462B948e7
 chain_id: 17000
 eth_rpc_url: https://ethereum-holesky.publicnode.com
 
-# Set this
+# Set these
+operator_address:
 node_public_ip:

@@ -122,17 +122,15 @@ OR
 
 ```bash
 # Make sure you're on the latest image
-docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet
+docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet-p2p
 
 docker run -it --name opacity-avs \
     --device /dev/sgx_enclave \
     --device /dev/sgx_provision \
-    --volume $OPERATOR_ECDSA_KEY_FILE:/opacity-avs-node/opacity.ecdsa.key.json \
     --volume $OPERATOR_BLS_KEY_FILE:/opacity-avs-node/opacity.bls.key.json \
     --volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
-    -e OPERATOR_ECDSA_KEY_PASSWORD=$OPERATOR_ECDSA_KEY_PASSWORD \
     -e OPERATOR_BLS_KEY_PASSWORD=$OPERATOR_BLS_KEY_PASSWORD \
-    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet
+    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet-p2p
 ```
 
 add a `-d` to start it in the background.
