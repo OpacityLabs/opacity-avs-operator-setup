@@ -24,7 +24,7 @@ We DO NOT support AWS Enclaves!
 ## Clone this repo
 
 ```bash
-git clone https://github.com/OpacityLabs/opacity-avs-operator-setup && cd opacity-avs-node
+git clone https://github.com/OpacityLabs/opacity-avs-operator-setup && cd opacity-avs-operator-setup
 ```
 
 ## Check SGX
@@ -34,6 +34,7 @@ First we should check you are on a valid SGX machine.
 Go to [Fortanix](https://support.fortanix.com/hc/en-us/articles/4414753648788-SGX-Detect-Tool) and download the binary for your operating system.
 
 For Ubuntu 22.04:
+
 ```bash
 wget https://download.fortanix.com/sgx-detect/ubuntu22.04/sgx-detect?_gl=1*1saf6me*_gcl_au*NDAwNTE3NzE0LjE3MTk1MjQyNDQ -O sgx-detect
 chmod +x sgx-detect
@@ -43,7 +44,6 @@ sudo ./sgx-detect
 You should see:
 
 <img width="418" alt="sgx-detect" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/sgx.png?raw=true">
-
 
 If you see any red on the output, please follow the guide here: [SGX Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/SGX.md)
 
@@ -82,6 +82,7 @@ node_public_ip: your.ip.public.address
 ```
 
 ### Start the Docker container
+
 ```sh
 #! Make sure these are correct
 export OPERATOR_ECDSA_KEY_PASSWORD="your password"
@@ -91,7 +92,6 @@ export OPERATOR_BLS_KEY_PASSWORD="your password"
 export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json
 export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.json
 ```
-
 
 Run:
 
@@ -121,10 +121,13 @@ add a `-d` to start it in the background.
 This should start off the container
 
 To check if it is still alive run:
+
 ```bash
 docker container ls -la
 ```
+
 To get the logs from a container
+
 ```bash
 docker logs --since=1h <container-id>
 ```
@@ -134,7 +137,6 @@ If all looks good go to https://your-node-public-ip:7047
 You should see:
 
 <img width="640" alt="running node" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/running-node.png?raw=true">
-
 
 ## View Node Logs
 
@@ -151,7 +153,6 @@ OR
 ```bash
 docker logs --since=1h opacity-avs
 ```
-
 
 The following command will also dump all the logs into a `opacity-avs-node.log` file:
 
