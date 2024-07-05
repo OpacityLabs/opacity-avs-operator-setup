@@ -131,7 +131,7 @@ docker run -it \
     --volume $OPERATOR_BLS_KEY_FILE:/opacity-avs-node/config/opacity.bls.key.json \
     --volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
     -e OPERATOR_BLS_KEY_PASSWORD=$OPERATOR_BLS_KEY_PASSWORD \
-    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet-p2p bash
+    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet-p2p
 ```
 
 add a `-d` to start it in the background.
