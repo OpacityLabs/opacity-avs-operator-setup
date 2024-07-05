@@ -56,7 +56,7 @@ start-container:
 		--device /dev/sgx_enclave \
 		--device /dev/sgx_provision \
 		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/opacity.bls.key.json \
-		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
+		--volume config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
 		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet-p2p
 
