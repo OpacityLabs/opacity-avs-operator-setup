@@ -60,6 +60,29 @@ The binaries for the two CLI tools are provided bin folder of this repo. Since t
 
 Before we can run a node, you must register your keys as an operator with EigenLayer mainnet. Please follow this guide: [Register Operator Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/REGISTER-EIGEN.md)
 
+
+## Make sure you have 20ETH of Supported LSTs Delegated to your Operator
+
+- [Beacon Ether](https://app.eigenlayer.xyz/restake/ETH)
+- [stETH](https://app.eigenlayer.xyz/restake/stETH)
+- [rETH](https://app.eigenlayer.xyz/restake/rETH)
+- [cbETH](https://app.eigenlayer.xyz/restake/cbETH)
+- [ETHx](https://app.eigenlayer.xyz/restake/ETHx)
+- [ankrETH](https://app.eigenlayer.xyz/restake/ankrETH)
+- [OETH](https://app.eigenlayer.xyz/restake/OETH)
+- [osETH](https://app.eigenlayer.xyz/restake/osETH)
+- [swETH](https://app.eigenlayer.xyz/restake/swETH)
+- [wBETH](https://app.eigenlayer.xyz/restake/wBETH)
+- [sfrxETH](https://app.eigenlayer.xyz/restake/sfrxETH)
+- [lsETH](https://app.eigenlayer.xyz/restake/lsETH)
+- [mETH](https://app.eigenlayer.xyz/restake/mETH)
+
+
+Here is an example operator for our AVS on mainnet: [0xWildhare](https://app.eigenlayer.xyz/operator/0xe743b96d0c9b50a0d902a93c95ccb4ac8749a8c5)
+
+
+
+
 ## Install Docker
 
 Using docker will make it much easier to manage the lifetime of your node operations, as well as seamlessly apply updates.
