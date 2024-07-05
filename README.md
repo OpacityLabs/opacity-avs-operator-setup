@@ -96,8 +96,9 @@ Use this guide: [Docker Install Guide](https://docs.docker.com/engine/install/li
 There is one config value you must set manually in config/mainnet/opacity.mainnet.config.yaml
 
 ```yaml
-# Set this (no quotes needed)
-node_public_ip: your.ip.public.address
+# Set these
+operator_address:
+node_public_ip:
 ```
 
 ### Start the Docker container
