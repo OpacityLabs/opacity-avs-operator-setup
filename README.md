@@ -96,10 +96,6 @@ Use this guide: [Docker Install Guide](https://docs.docker.com/engine/install/li
 There is one config value you must set manually in config/mainnet/opacity.mainnet.config.yaml
 
 ```yaml
-#! Do not change this
-ecdsa_private_key_store_path: /opacity-avs-node/opacity.ecdsa.key.json
-#! Do not change this
-bls_private_key_store_path: /opacity-avs-node/opacity.bls.key.json
 # Set this (no quotes needed)
 node_public_ip: your.ip.public.address
 ```
