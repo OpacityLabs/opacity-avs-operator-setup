@@ -1,6 +1,8 @@
-# Opacity AVS Node
+# Opacity AVS Mainnet Node Setup Guide
 
 For support contact @EulerLagrange217 on telegram
+
+[Opacity AVS](https://app.eigenlayer.xyz/avs/0xCE06c5fe42d22fF827A519396583Fd9f5176E3D3)
 
 ## Introduction
 
@@ -53,9 +55,10 @@ This step might be optional, so read carefully.
 
 The binaries for the two CLI tools are provided bin folder of this repo. Since these binaries will handle private keys or may not execute correctly we've provided instructions to build them yourself in: [CLI Guide]( [SGX Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/SGX.md))
 
-## Register Node Operator with EigenLayer
 
-Before we can run a node, you must register your keys as an operator with EigenLayer. Please follow this guide: [Register Operator Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/REGISTER-EIGEN.md)
+## Register Node Operator with EigenLayer mainnet
+
+Before we can run a node, you must register your keys as an operator with EigenLayer mainnet. Please follow this guide: [Register Operator Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/REGISTER-EIGEN.md)
 
 ## Install Docker
 
@@ -67,7 +70,7 @@ Use this guide: [Docker Install Guide](https://docs.docker.com/engine/install/li
 
 ### Update Config
 
-There is one config value you must set manually in config/holesky/opacity.config.yaml
+There is one config value you must set manually in config/mainnet/opacity.mainnet.config.yaml
 
 ```yaml
 #! Do not change this
@@ -100,17 +103,17 @@ OR
 
 ```bash
 # Make sure you're on the latest image
-docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet
 
 docker run -it --name opacity-avs \
     --device /dev/sgx_enclave \
     --device /dev/sgx_provision \
     --volume $OPERATOR_ECDSA_KEY_FILE:/opacity-avs-node/opacity.ecdsa.key.json \
     --volume $OPERATOR_BLS_KEY_FILE:/opacity-avs-node/opacity.bls.key.json \
-    --volume ./config/holesky/opacity.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
+    --volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
     -e OPERATOR_ECDSA_KEY_PASSWORD=$OPERATOR_ECDSA_KEY_PASSWORD \
     -e OPERATOR_BLS_KEY_PASSWORD=$OPERATOR_BLS_KEY_PASSWORD \
-    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
+    -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet
 ```
 
 add a `-d` to start it in the background.

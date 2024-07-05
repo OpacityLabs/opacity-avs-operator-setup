@@ -1,4 +1,3 @@
-
 .PHONY: install-eigenlayer-cli
 install-eigenlayer-cli:
 	@set -e
@@ -32,7 +31,7 @@ register-eigen-operator:
 	@bin/eigenlayer operator register operator.yaml
 
 register-opacity-node:
-	@bin/avs-cli --config config/opacity.config.yaml register-operator-with-avs
+	@bin/avs-cli --config config/mainnet/opacity.mainnet.config.yaml register-operator-with-avs
 
 
 
@@ -50,7 +49,7 @@ generate-notary-keys:
 
 .PHONY: start-container
 start-container:
-	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+	@docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "OPERATOR_ECDSA_KEY_PASSWORD is not set" && exit 1)
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "OPERATOR_BLS_KEY_PASSWORD is not set" && exit 1)
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "OPERATOR_ECDSA_KEY_FILE env var is not set" && exit 1)
@@ -60,10 +59,10 @@ start-container:
 		--device /dev/sgx_provision \
 		--volume $(OPERATOR_ECDSA_KEY_FILE):/opacity-avs-node/opacity.ecdsa.key.json \
 		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/opacity.bls.key.json \
-		--volume ./config/holesky/opacity.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
+		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_ECDSA_KEY_PASSWORD=$(OPERATOR_ECDSA_KEY_PASSWORD) \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
-		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
+		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:mainnet
 
 .PHONY: show-node-logs
 show-node-logs:

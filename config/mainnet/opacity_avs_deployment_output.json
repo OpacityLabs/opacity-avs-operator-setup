@@ -1,0 +1,16 @@
+{
+  "addresses": {
+    "BLSApkRegistryImplementation": "0x4fdB78314Df17993aa4657D6dD0053648dA89Fcf",
+    "BLSApkRegistryProxy": "0x2e72a4aECE226985D8A798424778647aEa49bFbE",
+    "IndexRegistryImplementation": "0xfdD7D81cDF2127A0c469FB8C8f9240F2F352f141",
+    "IndexRegistryProxy": "0x9eCe1f5B8aAfC6E4126FF0DA9c86F4549439bEe9",
+    "OpacityPauserRegistry": "0x04445495B03b20238D2A7758Fc09D7Af51a3de44",
+    "OpacityProxyAdmin": "0x38dC5893B158baC2b4a0Cf04DF742a647a5cfB1b",
+    "OpacityServiceManagerImplementation": "0x89C621A6a240821F180368bEDc87AE302CE38D87",
+    "OpacityServiceManagerProxy": "0xCE06c5fe42d22fF827A519396583Fd9f5176E3D3",
+    "RegistryCoordinatorImplementation": "0xbC8576b14f1a905367D1e1026E585Df46CC3441b",
+    "RegistryCoordinatorProxy": "0xeCd099fA5048c3738a5544347D8cBc8076E76494",
+    "StakeRegistryImplementation": "0x9A8e716EaE3185A1862fcEBdF232C8fA62637a70",
+    "StakeRegistryProxy": "0xbC3B5e6BF9368eF01b40c13EaA3603017957984C"
+  }
+}
