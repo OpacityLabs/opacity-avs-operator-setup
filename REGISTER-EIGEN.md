@@ -118,21 +118,3 @@ You should see:
 <img width="1572" alt="Screenshot 2024-06-20 at 1 35 59 PM" src="https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/assets/register-eigen.png?raw=true">
 
 
-## Make sure you have 20ETH of Supported LSTs Delegated to your Operator
-
-- [Beacon Ether](https://app.eigenlayer.xyz/restake/ETH)
-- [stETH](https://app.eigenlayer.xyz/restake/stETH)
-- [rETH](https://app.eigenlayer.xyz/restake/rETH)
-- [cbETH](https://app.eigenlayer.xyz/restake/cbETH)
-- [ETHx](https://app.eigenlayer.xyz/restake/ETHx)
-- [ankrETH](https://app.eigenlayer.xyz/restake/ankrETH)
-- [OETH](https://app.eigenlayer.xyz/restake/OETH)
-- [osETH](https://app.eigenlayer.xyz/restake/osETH)
-- [swETH](https://app.eigenlayer.xyz/restake/swETH)
-- [wBETH](https://app.eigenlayer.xyz/restake/wBETH)
-- [sfrxETH](https://app.eigenlayer.xyz/restake/sfrxETH)
-- [lsETH](https://app.eigenlayer.xyz/restake/lsETH)
-- [mETH](https://app.eigenlayer.xyz/restake/mETH)
-
-
-Here is an example operator for our AVS on mainnet: [0xWildhare](https://app.eigenlayer.xyz/operator/0xe743b96d0c9b50a0d902a93c95ccb4ac8749a8c5)
