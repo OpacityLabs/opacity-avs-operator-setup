@@ -124,7 +124,7 @@ OR
 # Make sure you're on the latest image
 docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet
 
-docker run -it --name opacity-avs \
+docker run -it \
     --device /dev/sgx_enclave \
     --device /dev/sgx_provision \
     --volume $OPERATOR_ECDSA_KEY_FILE:/opacity-avs-node/opacity.ecdsa.key.json \
