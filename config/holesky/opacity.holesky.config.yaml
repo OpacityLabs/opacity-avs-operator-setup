@@ -11,3 +11,6 @@ chain_id: 17000
 operator_address:
 eth_rpc_url: https://ethereum-holesky.publicnode.com
 node_public_ip:
+ecdsa_private_key_store_path: 
+bls_private_key_store_path: 
+
