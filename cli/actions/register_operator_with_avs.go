@@ -19,8 +19,10 @@ import (
 	sdkutils "github.com/Layr-Labs/eigensdk-go/utils"
 	contractAVSDirectory "github.com/OpacityLabs/opacity-avs-node/cli/bindings/AVSDirectory"
 	contractDelegationManager "github.com/OpacityLabs/opacity-avs-node/cli/bindings/DelegationManager"
+	contractOpacityServiceManager "github.com/OpacityLabs/opacity-avs-node/cli/bindings/OpacityServiceManager"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/urfave/cli"
@@ -34,6 +36,14 @@ var (
 		Usage:    "Load configuration from `FILE`",
 	}
 	/* Optional Flags */
+)
+
+const (
+	// ReceiptStatusFailed is the status code of a transaction if execution failed.
+	ReceiptStatusFailed = uint64(0)
+
+	// ReceiptStatusSuccessful is the status code of a transaction if execution succeeded.
+	ReceiptStatusSuccessful = uint64(1)
 )
 
 var (
@@ -53,9 +63,10 @@ type OpacityConfig struct {
 	AVSDirectoryAddress         string `yaml:"avs_directory_address"`
 	EigenLayerDelegationManager string `yaml:"eigenlayer_delegation_manager"`
 	ChainId                     int    `yaml:"chain_id"`
-	EthRpcUrl                   string `yaml:"eth_rpc_url"`
 	ECDSAPrivateKeyStorePath    string `yaml:"ecdsa_private_key_store_path"`
 	BLSPrivateKeyStorePath      string `yaml:"bls_private_key_store_path"`
+	EthRpcUrl                   string `yaml:"eth_rpc_url"`
+	OperatorAddress             string `yaml:"operator_address"`
 	NodePublicIP                string `yaml:"node_public_ip"`
 }
 
@@ -97,44 +108,6 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 
 	}
 
-	ecdsaKeyPassword, ok := os.LookupEnv("OPERATOR_ECDSA_KEY_PASSWORD")
-	if !ok {
-		log.Fatalln("OPERATOR_ECDSA_KEY_PASSWORD env var not set. using empty string")
-		return ErrNoECDSAKeyPassword
-	}
-
-	FailIfNoFile(nodeConfig.ECDSAPrivateKeyStorePath)
-
-	operatorEcdsaPrivKey, err := sdkecdsa.ReadKey(
-		nodeConfig.ECDSAPrivateKeyStorePath,
-		ecdsaKeyPassword,
-	)
-
-	if operatorEcdsaPrivKey == nil {
-		log.Panicln("Unable to decrypt operator ecdsa private key.")
-		return errors.New("Unable to decrypt operator ecdsa private key.")
-	}
-	if err != nil {
-		log.Fatalln("Unable to decrypt operator ecdsa private key.")
-		return err
-	}
-
-	blsKeyPassword, ok := os.LookupEnv("OPERATOR_BLS_KEY_PASSWORD")
-	if !ok {
-		log.Fatalln("OPERATOR_BLS_KEY_PASSWORD env var not set. using empty string")
-		return ErrNoBLSKeyPassword
-	}
-	blsKeyPair, err := bls.ReadPrivateKeyFromFile(nodeConfig.BLSPrivateKeyStorePath, blsKeyPassword)
-
-	if blsKeyPair == nil {
-		log.Panicln("Unable to decrypt operator private key.")
-		return errors.New("Unable to decrypt operator bls private key.")
-	}
-	if err != nil {
-		log.Fatalln("Unable to decrypt operator bls private key.")
-		return err
-	}
-
 	client, err := ethclient.Dial(nodeConfig.EthRpcUrl)
 	if err != nil {
 		log.Fatal(err)
@@ -145,7 +118,7 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 	registryCoordinatorAddress := common.HexToAddress(nodeConfig.RegistryCoordinatorAddress)
 	avsDirectoryAddress := common.HexToAddress(nodeConfig.AVSDirectoryAddress)
 	delegationManagerAddress := common.HexToAddress(nodeConfig.EigenLayerDelegationManager)
-	operatorAddress := crypto.PubkeyToAddress(operatorEcdsaPrivKey.PublicKey)
+	operatorAddress := common.HexToAddress(nodeConfig.OperatorAddress)
 	avsDirectoryContract, err := contractAVSDirectory.NewContractAVSDirectoryCaller(avsDirectoryAddress, client)
 	if err != nil {
 		log.Fatal(err)
@@ -157,6 +130,11 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 		return err
 	}
 	registryCoordinatorContract, err := contractRegistryCoordinator.NewContractRegistryCoordinator(registryCoordinatorAddress, client)
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+	opacityServiceContract, err := contractOpacityServiceManager.NewContractOpacityServiceManager(opacityAddress, client)
 	if err != nil {
 		log.Fatal(err)
 		return err
@@ -185,6 +163,50 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 
 	if operatorStatus == 0 {
 		// Register operator to AVS
+
+		ecdsaKeyPassword, ok := os.LookupEnv("OPERATOR_ECDSA_KEY_PASSWORD")
+		if !ok {
+			log.Fatalln("OPERATOR_ECDSA_KEY_PASSWORD env var not set. using empty string")
+			return ErrNoECDSAKeyPassword
+		}
+
+		FailIfNoFile(nodeConfig.ECDSAPrivateKeyStorePath)
+
+		operatorEcdsaPrivKey, err := sdkecdsa.ReadKey(
+			nodeConfig.ECDSAPrivateKeyStorePath,
+			ecdsaKeyPassword,
+		)
+
+		if operatorEcdsaPrivKey == nil {
+			log.Panicln("Unable to decrypt operator ecdsa private key.")
+			return errors.New("Unable to decrypt operator ecdsa private key.")
+		}
+		if err != nil {
+			log.Fatalln("Unable to decrypt operator ecdsa private key.")
+			return err
+		}
+
+		operatorAddress2 := crypto.PubkeyToAddress(operatorEcdsaPrivKey.PublicKey)
+		if operatorAddress2 != operatorAddress {
+			log.Fatalln("Operator address in private key file does not match operator address in config file.")
+			return errors.New("Operator address in private key file does not match operator address in config file.")
+		}
+
+		blsKeyPassword, ok := os.LookupEnv("OPERATOR_BLS_KEY_PASSWORD")
+		if !ok {
+			log.Fatalln("OPERATOR_BLS_KEY_PASSWORD env var not set. using empty string")
+			return ErrNoBLSKeyPassword
+		}
+		blsKeyPair, err := bls.ReadPrivateKeyFromFile(nodeConfig.BLSPrivateKeyStorePath, blsKeyPassword)
+
+		if blsKeyPair == nil {
+			log.Panicln("Unable to decrypt operator private key.")
+			return errors.New("Unable to decrypt operator bls private key.")
+		}
+		if err != nil {
+			log.Fatalln("Unable to decrypt operator bls private key.")
+			return err
+		}
 
 		saltBytes := make([]byte, 32)
 		var salt [32]byte
@@ -265,18 +287,46 @@ func RegisterOperatorWithAvs(ctx *cli.Context) error {
 
 		quorumNumbers := sdktypes.QuorumNums{0}
 
-		res, err := registryCoordinatorContract.RegisterOperator(
-			auth,
-			quorumNumbers.UnderlyingType(),
-			nodeConfig.NodePublicIP,
-			pubkeyRegParams,
-			operatorSignatureWithSaltAndExpiry,
-		)
+		var tx *types.Transaction
+
+		if nodeConfig.ChainId == 1 {
+			tx, err = registryCoordinatorContract.RegisterOperator(
+				auth,
+				quorumNumbers.UnderlyingType(),
+				nodeConfig.NodePublicIP,
+				pubkeyRegParams,
+				operatorSignatureWithSaltAndExpiry,
+			)
+		} else {
+			tx, err = opacityServiceContract.RegisterOperatorToAVS(auth, operatorAddress, contractOpacityServiceManager.ISignatureUtilsSignatureWithSaltAndExpiry(operatorSignatureWithSaltAndExpiry))
+		}
+
 		if err != nil {
 			fmt.Println(err)
 			return err
 		}
-		fmt.Println("Register Operator to AVS TX:", res.Hash().Hex())
+
+		fmt.Println("Register operator to AVS TX broadcasted")
+		fmt.Println("Etherscan URL: https://etherscan.io/tx/" + tx.Hash().Hex())
+
+		var foundTx bool = false
+
+		for !foundTx {
+			txReceipt, err := client.TransactionReceipt(context.Background(), tx.Hash())
+			if err != nil {
+				fmt.Println("Transaction not mined yet")
+				time.Sleep(5 * time.Second)
+			}
+			fmt.Println("Transaction included in block ", txReceipt.BlockNumber)
+			if txReceipt.Status == ReceiptStatusFailed {
+				log.Fatalln("error: transaction reverted, failed to register operator to AVS")
+				return errors.New("error: transaction reverted, failed to register operator to AVS")
+			}
+			if txReceipt.Status == ReceiptStatusSuccessful {
+				foundTx = true
+			}
+		}
+
 		return nil
 
 	} else {

@@ -50,10 +50,10 @@ generate-notary-keys:
 .PHONY: start-container
 start-container:
 	@docker pull opacitylabseulerlagrange/opacity-avs-node:mainnet
-	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "OPERATOR_ECDSA_KEY_PASSWORD is not set" && exit 1)
-	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "OPERATOR_BLS_KEY_PASSWORD is not set" && exit 1)
-	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "OPERATOR_ECDSA_KEY_FILE env var is not set" && exit 1)
-	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "OPERATOR_BLS_KEY_FILE env var is not set" && exit 1)
+	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
+	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
+	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
+	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "WARNING: OPERATOR_BLS_KEY_FILE env var is not set")
 	@docker run -d -it --name opacity-avs \
 		--device /dev/sgx_enclave \
 		--device /dev/sgx_provision \

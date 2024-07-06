@@ -7,8 +7,7 @@ avs_directory_address: 0x135DDa560e946695d6f155dACaFC6f1F25C1F5AF
 eigenlayer_delegation_manager: 0x39053D51B77DC0d36036Fc1fCc8Cb819df8Ef37A
 chain_id: 1
 
-# Set this
+# Set these
+operator_address:
 eth_rpc_url: https://holesky.infura.io/v3/...
-
-# Set this
 node_public_ip:

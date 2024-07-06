@@ -93,22 +93,27 @@ Use this guide: [Docker Install Guide](https://docs.docker.com/engine/install/li
 
 ### Update Config
 
-There is one config value you must set manually in config/mainnet/opacity.mainnet.config.yaml
+There are a few values you must set manually in config/mainnet/opacity.mainnet.config.yaml (or for holesky)
 
 ```yaml
-# Set this (no quotes needed)
-node_public_ip: your.ip.public.address
+# Set these
+operator_address:
+eth_rpc_url: 
+node_public_ip:
 ```
 
 ### Start the Docker container
 
+The OPERATOR_ECDSA_KEY_PASSWORD and OPERATOR_ECDSA_KEY_FILE environment variables are optional, but the node will not automatically register to the AVS if they are not provided.
+
+
 ```sh
 #! Make sure these are correct
-export OPERATOR_ECDSA_KEY_PASSWORD="your password"
+export OPERATOR_ECDSA_KEY_PASSWORD="your password" # optional
 export OPERATOR_BLS_KEY_PASSWORD="your password"
 
 #! Make sure these are correct
-export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json
+export OPERATOR_ECDSA_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.ecdsa.key.json # optional
 export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.json
 ```
 

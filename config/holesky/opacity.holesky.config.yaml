@@ -6,7 +6,8 @@ opacity_avs_address: 0xbfc5d26c6eeb46475eb3960f5373edc5341ee535
 avs_directory_address: 0x055733000064333CaDDbC92763c58BF0192fFeBf
 eigenlayer_delegation_manager: 0xA44151489861Fe9e3055d95adC98FbD462B948e7
 chain_id: 17000
-eth_rpc_url: https://ethereum-holesky.publicnode.com
 
 # Set this
+operator_address:
+eth_rpc_url: https://ethereum-holesky.publicnode.com
 node_public_ip:
