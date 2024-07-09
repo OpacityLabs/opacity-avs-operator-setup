@@ -9,5 +9,5 @@ chain_id: 1
 
 # Set these
 operator_address:
-eth_rpc_url: https://mainnet.infura.io/v3/...
+eth_rpc_url:
 node_public_ip:

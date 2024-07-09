@@ -120,7 +120,7 @@ export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.jso
 Run:
 
 ```bash
-make start-container
+make mainnet-start-node
 ```
 
 OR
