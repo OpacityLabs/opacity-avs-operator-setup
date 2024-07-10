@@ -48,7 +48,7 @@ generate-notary-keys:
 
 
 .PHONY: mainnet-start-node
-start-container:
+mainnet-start-node:
 	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
@@ -66,7 +66,7 @@ start-container:
 
 
 .PHONY: holesky-start-node
-start-container:
+holesky-start-node:
 	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
