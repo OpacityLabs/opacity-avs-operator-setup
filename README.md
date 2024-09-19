@@ -55,11 +55,9 @@ This step might be optional, so read carefully.
 
 The binaries for the two CLI tools are provided bin folder of this repo. Since these binaries will handle private keys or may not execute correctly we've provided instructions to build them yourself in: [CLI Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/INSTALL-CLI.md)
 
-
 ## Register Node Operator with EigenLayer mainnet
 
 Before we can run a node, you must register your keys as an operator with EigenLayer mainnet. Please follow this guide: [Register Operator Guide](https://github.com/OpacityLabs/opacity-avs-operator-setup/blob/main/REGISTER-EIGEN.md)
-
 
 ## Make sure you have 20ETH of Supported LSTs Delegated to your Operator
 
@@ -77,11 +75,7 @@ Before we can run a node, you must register your keys as an operator with EigenL
 - [lsETH](https://app.eigenlayer.xyz/restake/lsETH)
 - [mETH](https://app.eigenlayer.xyz/restake/mETH)
 
-
 Here is an example operator for our AVS on mainnet: [0xWildhare](https://app.eigenlayer.xyz/operator/0xe743b96d0c9b50a0d902a93c95ccb4ac8749a8c5)
-
-
-
 
 ## Install Docker
 
@@ -98,14 +92,13 @@ There are a few values you must set manually in config/mainnet/opacity.mainnet.c
 ```yaml
 # Set these
 operator_address:
-eth_rpc_url: 
+eth_rpc_url:
 node_public_ip:
 ```
 
 ### Start the Docker container
 
 The OPERATOR_ECDSA_KEY_PASSWORD and OPERATOR_ECDSA_KEY_FILE environment variables are optional, but the node will not automatically register to the AVS if they are not provided.
-
 
 ```sh
 #! Make sure these are correct
@@ -121,6 +114,12 @@ Run:
 
 ```bash
 make mainnet-start-node
+```
+
+or, for Holesky
+
+```bash
+make holesky-start-node
 ```
 
 OR
