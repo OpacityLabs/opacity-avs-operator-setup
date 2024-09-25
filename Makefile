@@ -44,14 +44,14 @@ generate-notary-keys:
 	@./generate_notary_keys.sh
 
 .PHONY: mainnet-register-node
-mainnet-start-node:
+mainnet-register-node:
 	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
 	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "WARNING: OPERATOR_BLS_KEY_FILE env var is not set")
 	@docker run -d -it --name opacity-avs-registration \
-		--entrypoint register_node.sh
+		--entrypoint /opacity-avs-node/register.sh \
 		--volume $(OPERATOR_ECDSA_KEY_FILE):/opacity-avs-node/config/opacity.ecdsa.key.json \
 		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/config/opacity.bls.key.json \
 		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
