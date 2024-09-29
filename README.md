@@ -120,6 +120,14 @@ export OPERATOR_BLS_KEY_FILE=$HOME/.eigenlayer/operator_keys/opacity.bls.key.jso
 Run:
 
 ```bash
+make mainnet-register-node
+```
+
+After which , you can remove the ecdsa keystore from the enviroment 
+
+Run:
+
+```bash
 make mainnet-start-node
 ```
 
@@ -132,10 +140,8 @@ docker pull opacitylabseulerlagrange/opacity-avs-node:latest
 docker run -it \
     --device /dev/sgx_enclave \
     --device /dev/sgx_provision \
-    --volume $OPERATOR_ECDSA_KEY_FILE:/opacity-avs-node/config/opacity.ecdsa.key.json \
     --volume $OPERATOR_BLS_KEY_FILE:/opacity-avs-node/config/opacity.bls.key.json \
     --volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
-    -e OPERATOR_ECDSA_KEY_PASSWORD=$OPERATOR_ECDSA_KEY_PASSWORD \
     -e OPERATOR_BLS_KEY_PASSWORD=$OPERATOR_BLS_KEY_PASSWORD \
     -p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
 ```
