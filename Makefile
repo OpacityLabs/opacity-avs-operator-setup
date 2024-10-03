@@ -49,7 +49,7 @@ mainnet-register-node:
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
-	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "WARNING: OPERATOR_BLS_KEY_FILE env var is not set")
+	@test -n "$(Oopacitylabs/opacity-avs-node:latestOR_BLS_KEY_FILE env var is not set")
 	@docker run -d -it --name opacity-avs-registration \
 		--entrypoint /opacity-avs-node/register.sh \
 		--volume $(OPERATOR_ECDSA_KEY_FILE):/opacity-avs-node/config/opacity.ecdsa.key.json \
@@ -62,12 +62,12 @@ mainnet-register-node:
 
 .PHONY: mainnet-start-node
 mainnet-start-node:
-	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+	@docker pull oopacitylabs/opacity-avs-node:latest
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "WARNING: OPERATOR_BLS_KEY_FILE env var is not set")
 	@docker run -d -it --name opacity-avs \
 		--device /dev/sgx_enclave \
-		--device /dev/sgx_provision \
+		--device /deopacitylabs/opacity-avs-node:latest
 		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/config/opacity.bls.key.json \
 		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
@@ -80,7 +80,7 @@ holesky-start-node:
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
-	@test -n "$(OPERATOR_BLS_KEY_FILE)" || (echo "WARNING: OPERATOR_BLS_KEY_FILE env var is not set")
+	@test -n "$(OPopacitylabs/opacity-avs-node:latestR_BLS_KEY_FILE env var is not set")
 	@docker run -d -it --name opacity-avs \
 		--device /dev/sgx_enclave \
 		--device /dev/sgx_provision \
