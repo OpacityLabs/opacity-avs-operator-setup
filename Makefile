@@ -45,7 +45,7 @@ generate-notary-keys:
 
 .PHONY: mainnet-register-node
 mainnet-register-node:
-	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+	@docker pull opacitylabs/opacity-avs-node:latest
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
@@ -57,7 +57,7 @@ mainnet-register-node:
 		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_ECDSA_KEY_PASSWORD=$(OPERATOR_ECDSA_KEY_PASSWORD) \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
-		opacitylabseulerlagrange/opacity-avs-node:latest
+		opacitylabs/opacity-avs-node:latest
 
 
 .PHONY: mainnet-start-node
@@ -71,12 +71,12 @@ mainnet-start-node:
 		--volume $(OPERATOR_BLS_KEY_FILE):/opacity-avs-node/config/opacity.bls.key.json \
 		--volume ./config/mainnet/opacity.mainnet.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
-		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
+		-p 7047:7047 opacitylabs/opacity-avs-node:latest
 
 
 .PHONY: holesky-start-node
 holesky-start-node:
-	@docker pull opacitylabseulerlagrange/opacity-avs-node:latest
+	@docker pull opacitylabs/opacity-avs-node:latest
 	@test -n "$(OPERATOR_ECDSA_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_ECDSA_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_BLS_KEY_PASSWORD)" || (echo "WARNING: OPERATOR_BLS_KEY_PASSWORD is not set")
 	@test -n "$(OPERATOR_ECDSA_KEY_FILE)" || (echo "WARNING: OPERATOR_ECDSA_KEY_FILE env var is not set")
@@ -89,7 +89,7 @@ holesky-start-node:
 		--volume ./config/holesky/opacity.holesky.config.yaml:/opacity-avs-node/config/opacity.config.yaml \
 		-e OPERATOR_ECDSA_KEY_PASSWORD=$(OPERATOR_ECDSA_KEY_PASSWORD) \
 		-e OPERATOR_BLS_KEY_PASSWORD=$(OPERATOR_BLS_KEY_PASSWORD) \
-		-p 7047:7047 opacitylabseulerlagrange/opacity-avs-node:latest
+		-p 7047:7047 opacitylabs/opacity-avs-node:latest
 
 .PHONY: show-node-logs
 show-node-logs:
