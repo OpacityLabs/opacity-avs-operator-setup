@@ -11,3 +11,4 @@ chain_id: 1
 operator_address:
 eth_rpc_url:
 node_public_ip:
+operator_id:
