@@ -1,0 +1,35 @@
+server:
+  name: "opacity-avs-node"
+  host: "0.0.0.0"
+  port: 7047
+  html-info: |
+    <h1>Opacity Node {version}!</h1>
+    <ul>
+    <li>git commit hash: <a href="https://github.com/OpacityLabs/opacity-avs-node/commit/{git_commit_hash}">{git_commit_hash}</a></li>
+    <li>git commit timestamp: {git_commit_timestamp}</li>
+    <li>git commit timestamp: {git_origin_remote}</li>
+    <li>operator address: <a href="https://app.eigenlayer.xyz/operator/{operator_address}">{operator_address}</a></li>
+    <li>operator BLS public key: <pre>{operator_bls_public_key}</pre></li>
+    <li>Notary public key: <pre>{public_key}</pre></li>
+    <li>Signed notary key: <pre>{notary_key_signature}</pre></li>
+    </ul>
+    <a href="/healthcheck">health check</a> - <a href="/info">info</a><br/>
+
+notarization:
+  max-transcript-size: 40960
+
+tls:
+  enabled: true
+  private-key-pem-path: "fixture/tls/notary.key"
+  certificate-pem-path: "fixture/tls/notary.crt"
+
+notary-key:
+  private-key-pem-path: "fixture/notary/notary.key"
+  public-key-pem-path: "fixture/notary/notary.pub"
+
+logging:
+  level: DEBUG
+
+authorization:
+  enabled: false
+  whitelist-csv-path: "fixture/auth/whitelist.csv"
